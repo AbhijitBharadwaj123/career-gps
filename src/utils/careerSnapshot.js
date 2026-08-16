@@ -50,9 +50,9 @@ export function formatSnapshotDate(value) {
 export function createSnapshotEmailHref(snapshot, publicUrl) {
   const asList = (items) => items.length ? items.map((item) => `- ${item}`).join('\n') : '- Nothing specific stood out yet.'
   const questions = snapshot.questionsStillToInvestigate || []
-  const subject = `My Career GPS Snapshot — ${snapshot.fromRole} → ${snapshot.toRole}`
+  const subject = `My Try the Work Snapshot — ${snapshot.fromRole} → ${snapshot.toRole}`
   const body = [
-    'Career GPS — My Career Snapshot',
+    'Try the Work — My Career Snapshot',
     '',
     `Future explored: ${snapshot.fromRole} → ${snapshot.toRole}`,
     '',
@@ -75,7 +75,7 @@ export function createSnapshotEmailHref(snapshot, publicUrl) {
     'Last explored:',
     formatSnapshotDate(snapshot.lastExploredAt || snapshot.completedAt),
     '',
-    'Try Career GPS:',
+    'Try the Work:',
     publicUrl,
   ].join('\n')
 

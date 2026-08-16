@@ -8,7 +8,7 @@ export default function Hero() {
           Explore before you commit
         </p>
         <h1 className="font-display text-[2.75rem] leading-[1.04] tracking-[-0.045em] text-ink sm:text-6xl sm:leading-[1.02] lg:text-[3.75rem]">
-          Before you commit to your next career move, simulate it.
+          Before you commit to your next career move, try it.
         </h1>
         <p className="mx-auto mt-7 max-w-2xl text-base leading-7 text-muted sm:mt-8 sm:text-lg sm:leading-8">
           Experience the decisions, trade-offs and moments that make up the job — before spending months trying to get it.

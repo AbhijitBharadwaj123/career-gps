@@ -104,7 +104,7 @@ export const mayaBaToPmSimulation = {
     ],
     customQuestion: {
       heading: 'What else would you want to investigate?',
-      supportingCopy: "Add a question you'd want answered in the real world. We'll save it only in your Career Snapshot on this device. It won't be used to score you or sent to Career GPS unless you choose to include it in feedback.",
+      supportingCopy: "Add a question you'd want answered in the real world. We'll save it only in your Career Snapshot on this device. It won't be used to score you or sent to Try the Work unless you choose to include it in feedback.",
       placeholder: 'What else would you want to know?',
       savedLabel: "You'd also want to investigate",
       submitLabel: 'Add question',
@@ -257,7 +257,7 @@ export const mayaBaToPmSimulation = {
     'not-for-me': {
       heading: 'What would you want more of instead?',
       choices: ['More analysis', 'More clearly defined ownership', 'Less stakeholder negotiation', 'Less ambiguity', 'More time going deep on one problem', "I'm not sure yet"],
-      summary: "Career GPS will eventually help you explore futures that keep more of what you want and less of what didn't resonate here.",
+      summary: "Try the Work will eventually help you explore futures that keep more of what you want and less of what didn't resonate here.",
     },
     decideLater: "I'll decide later.",
   },

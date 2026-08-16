@@ -45,7 +45,7 @@ export default function Home() {
 
       <main className="relative">
         {(unfinished || savedFutures.length > 0) && (
-          <aside className="mx-auto max-w-6xl px-6 pt-3 sm:px-8 lg:px-10" aria-label="Your Career GPS activity">
+          <aside className="mx-auto max-w-6xl px-6 pt-3 sm:px-8 lg:px-10" aria-label="Your Try the Work activity">
             <div className="flex flex-col gap-3 rounded-2xl border border-accent/15 bg-sage/45 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-semibold text-ink">{unfinished ? 'Continue your exploration' : `Welcome back. You have ${savedFutures.length} saved ${savedFutures.length === 1 ? 'future' : 'futures'}.`}</p>

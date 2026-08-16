@@ -55,8 +55,8 @@ export default function FeedbackModal({ open, onClose, outcomeId, transitionId =
       <section className="my-4 max-h-[calc(100vh-2rem)] w-full max-w-2xl overflow-y-auto rounded-[1.75rem] border border-line bg-canvas p-6 shadow-lift sm:p-8" role="dialog" aria-modal="true" aria-labelledby="feedback-heading">
         <div className="flex items-start justify-between gap-6">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Career GPS team</p>
-            <h2 id="feedback-heading" className="mt-2 font-display text-3xl tracking-[-0.035em] text-ink">Give feedback on Career GPS</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Try the Work team</p>
+            <h2 id="feedback-heading" className="mt-2 font-display text-3xl tracking-[-0.035em] text-ink">Give feedback on Try the Work</h2>
             <p className="mt-3 text-sm leading-6 text-muted">Tell us what helped, what felt confusing, or what you&apos;d like to explore next.</p>
           </div>
           <button type="button" autoFocus onClick={onClose} className="rounded-full border border-line px-3 py-1.5 text-sm text-muted hover:text-ink">Close</button>
@@ -65,7 +65,7 @@ export default function FeedbackModal({ open, onClose, outcomeId, transitionId =
         {status === 'success' ? (
           <div className="mt-8 rounded-2xl border border-accent/15 bg-sage/55 p-6">
             <h3 className="font-display text-3xl text-ink">Thank you.</h3>
-            <p className="mt-3 leading-7 text-muted">Your feedback will help shape what Career GPS explores next.</p>
+            <p className="mt-3 leading-7 text-muted">Your feedback will help shape what Try the Work explores next.</p>
           </div>
         ) : (
           <form name="career-gps-feedback" data-netlify="true" onSubmit={submitFeedback} className="mt-7 space-y-6">

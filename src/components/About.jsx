@@ -5,9 +5,9 @@ const linkClasses = 'font-semibold text-accent underline decoration-accent/30 un
 
 export default function About() {
   return (
-    <section className="border-t border-line bg-white/45 px-6 py-7 sm:px-8 lg:px-10" aria-label="Career GPS philosophy and contact">
+    <section className="border-t border-line bg-white/45 px-6 py-7 sm:px-8 lg:px-10" aria-label="Try the Work philosophy and contact">
       <div className="mx-auto flex max-w-6xl flex-col gap-3 text-sm leading-6 text-muted md:flex-row md:items-center md:justify-between md:gap-8">
-        <p className="max-w-3xl italic">Career GPS is an experiment in making career decisions more experiential, reversible, and human.</p>
+        <p className="max-w-3xl italic">Try the Work is an experiment in making career decisions more experiential, reversible, and human.</p>
         <p className="md:shrink-0">
           <span>Built with ChatGPT + Codex</span>
           <span className="mx-2 text-line" aria-hidden="true">·</span>

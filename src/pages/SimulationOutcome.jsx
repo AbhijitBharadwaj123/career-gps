@@ -25,12 +25,12 @@ export default function SimulationOutcome() {
   const publicSimulationUrl = new URL(publicPath, window.location.origin).href
   const emailHref = createSnapshotEmailHref(snapshot, publicSimulationUrl)
   const shareTextByOutcome = {
-    'explore-more': "I've been trying on different parts of Product Management with Career GPS before deciding whether to pursue the transition.",
-    'keep-exploring': "I've been trying on different parts of Product Management with Career GPS before deciding whether to pursue the transition.",
+    'explore-more': "I've been trying on different parts of Product Management with Try the Work before deciding whether to pursue the transition.",
+    'keep-exploring': "I've been trying on different parts of Product Management with Try the Work before deciding whether to pursue the transition.",
     unsure: "I've been exploring what Product Management actually feels like before deciding whether I want to pursue it. Some parts clicked and some made me want another look.",
     'still-unsure': "I've been exploring what Product Management actually feels like before deciding whether I want to pursue it. Some parts clicked and some made me want another look.",
     'not-for-me': 'I tried a Product Management career simulation and learned something useful before making the transition.',
-    'learned-enough': "I've been trying on different parts of Product Management with Career GPS and kept what I learned without forcing a decision.",
+    'learned-enough': "I've been trying on different parts of Product Management with Try the Work and kept what I learned without forcing a decision.",
   }
   const experienceCountCopy = snapshot.experiencesTried?.length > 1 ? ` I've explored ${snapshot.experiencesTried.length} different PM situations so far.` : ''
   const defaultShareText = `${shareTextByOutcome[outcomeId] || outcome?.shareText || ''}${experienceCountCopy}`
@@ -77,8 +77,8 @@ export default function SimulationOutcome() {
             <button type="button" onClick={() => setShareOpen(true)} className="mt-4 inline-flex min-h-10 rounded-full border border-line bg-white px-4 text-sm font-semibold text-ink hover:border-accent/35">Share what I discovered</button>
           </div>
           <div className="rounded-2xl border border-line bg-white/60 p-5">
-            <h2 className="font-display text-xl text-ink">Give feedback on Career GPS</h2>
-            <p className="mt-2 text-sm leading-6 text-muted">Only the feedback you explicitly enter is sent to the Career GPS team.</p>
+            <h2 className="font-display text-xl text-ink">Give feedback on Try the Work</h2>
+            <p className="mt-2 text-sm leading-6 text-muted">Only the feedback you explicitly enter is sent to the Try the Work team.</p>
             <button type="button" onClick={() => setFeedbackOpen(true)} className="mt-4 inline-flex min-h-10 rounded-full border border-line bg-white px-4 text-sm font-semibold text-ink hover:border-accent/35">Give feedback</button>
           </div>
         </section>
