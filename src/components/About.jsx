@@ -13,7 +13,7 @@ export default function About() {
           <span className="mx-2 text-line" aria-hidden="true">·</span>
           {siteConfig.linkedInUrl && (
             <>
-              <a href={siteConfig.linkedInUrl} target="_blank" rel="noreferrer" className={linkClasses}>LinkedIn</a>
+              <a href={siteConfig.linkedInUrl} target="_blank" rel="noopener noreferrer" className={linkClasses}>LinkedIn</a>
               <span className="mx-2 text-line" aria-hidden="true">·</span>
             </>
           )}
