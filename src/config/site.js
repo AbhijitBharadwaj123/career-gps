@@ -1,3 +1,3 @@
 export const siteConfig = {
-  linkedInUrl: '',
+  linkedInUrl: 'https://www.linkedin.com/in/abhijitbharadwaj/',
 }
