@@ -4,6 +4,7 @@ import Brand from '../components/Brand'
 import SelectionCard from '../components/SelectionCard'
 import SimulationProgress from '../components/SimulationProgress'
 import StakeholderMessage from '../components/StakeholderMessage'
+import VoiceInputButton from '../components/VoiceInputButton'
 import { getSimulation } from '../data/simulations'
 import { useTrackSimulationStage, useTransitionSimulation } from '../state/SimulationState'
 
@@ -68,6 +69,16 @@ export default function SimulationRespond() {
                   rows={4}
                   className="mt-4 w-full resize-y rounded-2xl border border-line bg-white/85 p-4 text-sm leading-6 text-ink outline-none placeholder:text-muted/65 focus:border-accent focus:ring-2 focus:ring-accent/15"
                 />
+                <div className="mt-4">
+                  <VoiceInputButton
+                    value={state.customResponse}
+                    label="your response"
+                    onChange={(nextValue) => {
+                      setField('responseId', 'custom')
+                      setField('customResponse', nextValue)
+                    }}
+                  />
+                </div>
               </div>
             </section>
 

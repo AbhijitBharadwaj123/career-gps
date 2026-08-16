@@ -4,6 +4,7 @@ import Brand from '../components/Brand'
 import ChoiceChips from '../components/ChoiceChips'
 import SelectionCard from '../components/SelectionCard'
 import SimulationProgress from '../components/SimulationProgress'
+import VoiceInputButton from '../components/VoiceInputButton'
 import { getSimulation } from '../data/simulations'
 import { useTrackSimulationStage, useTransitionSimulation } from '../state/SimulationState'
 
@@ -107,14 +108,24 @@ export default function SimulationDecide() {
                       rows={3}
                       className="mt-4 w-full resize-y rounded-2xl border border-line bg-white/85 p-4 text-sm leading-6 text-ink outline-none placeholder:text-muted/65 focus:border-accent focus:ring-2 focus:ring-accent/15"
                     />
-                    <button
-                      type="button"
-                      disabled={!state.customDecision.trim()}
-                      onClick={() => setField('customDecisionCaptured', true)}
-                      className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-5 text-sm font-semibold text-white transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:bg-line disabled:text-muted"
-                    >
-                      Use this approach
-                    </button>
+                    <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                      <VoiceInputButton
+                        value={state.customDecision}
+                        label="your approach"
+                        onChange={(nextValue) => {
+                          setField('customDecision', nextValue)
+                          setField('customDecisionCaptured', false)
+                        }}
+                      />
+                      <button
+                        type="button"
+                        disabled={!state.customDecision.trim()}
+                        onClick={() => setField('customDecisionCaptured', true)}
+                        className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-ink px-5 text-sm font-semibold text-white transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:bg-line disabled:text-muted"
+                      >
+                        Use this approach
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
