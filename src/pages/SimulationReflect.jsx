@@ -30,7 +30,7 @@ export default function SimulationReflect() {
   const responseMomentCopy = selectedResponse?.reflectionPrompt
     || 'When the trade-off became explicit, you responded in your own words. How did that feel?'
   const momentCopy = state.decisionId === 'custom'
-    ? `You chose a direction outside the options Career GPS presented. ${responseMomentCopy}`
+    ? `You chose a direction outside the options Try the Work presented. ${responseMomentCopy}`
     : responseMomentCopy
   const canContinue = state.energizing.length > 0 && state.uncomfortable.length > 0
 

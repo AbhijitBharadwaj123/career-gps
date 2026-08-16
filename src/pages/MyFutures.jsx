@@ -88,11 +88,11 @@ export default function MyFutures() {
             })}
           </section>
         )}
-        {!isEmpty && <div className="mt-14 border-t border-line pt-7"><button type="button" onClick={() => setClearOpen(true)} className="text-sm font-semibold text-muted hover:text-[#7A3F38]">Clear my saved Career GPS data</button></div>}
+        {!isEmpty && <div className="mt-14 border-t border-line pt-7"><button type="button" onClick={() => setClearOpen(true)} className="text-sm font-semibold text-muted hover:text-[#7A3F38]">Clear my saved Try the Work data</button></div>}
       </main>
       <ConfirmationDialog
         open={clearOpen}
-        title="Clear your saved Career GPS data?"
+        title="Clear your saved Try the Work data?"
         description="This will remove your saved Career Snapshots and unfinished simulations from this browser. This cannot be undone."
         confirmLabel="Clear my data"
         cancelLabel="Cancel"
