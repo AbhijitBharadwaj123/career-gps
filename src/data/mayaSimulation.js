@@ -1,0 +1,291 @@
+export const mayaBaToPmSimulation = {
+  id: 'ba-to-pm',
+  transitionId: 'ba-to-pm',
+  scenarioId: 'checkout',
+  experienceLabel: 'Checkout prioritization',
+  person: 'Maya',
+  fromRole: 'Business Analyst',
+  toRole: 'Product Manager',
+  transitionLabel: 'Business Analyst → Product Manager',
+  routes: {
+    context: '/simulate/ba-to-pm',
+    explore: '/simulate/ba-to-pm/explore',
+    decide: '/simulate/ba-to-pm/decide',
+    respond: '/simulate/ba-to-pm/respond',
+    reflect: '/simulate/ba-to-pm/reflect',
+    futureFeeling: '/simulate/ba-to-pm/future-feeling',
+    outcomes: '/simulate/ba-to-pm/outcome',
+    nextExperiment: '/simulate/ba-to-pm/next-experiment',
+    comingSoon: '/simulate/ba-to-pm/coming-soon',
+  },
+  entry: {
+    eyebrow: 'Your first moment as the PM',
+    heading: "You're the PM for checkout.",
+    introduction: 'Step into a real moment from the role and notice how the work feels from the inside.',
+    scenario: [
+      'Five days before a major campaign, checkout conversion has dropped 8%.',
+      'Engineering suspects a performance issue.',
+      'Customer Support thinks shoppers are getting confused by a new promo-code experience.',
+      'Sales wants an answer before the campaign launches.',
+      'Your team has capacity for one meaningful change this sprint.',
+    ],
+    reassurance: [
+      "You don't need to know the right answer.",
+      'Just explore the situation the way you naturally would.',
+    ],
+  },
+  explore: {
+    heading: 'What do you want to understand first?',
+    supportingCopy: 'There are a few signals you could look at. Start wherever your curiosity takes you.',
+    options: [
+      {
+        id: 'checkout-funnel',
+        title: 'See where shoppers are dropping',
+        label: 'Checkout funnel',
+        decisionSummary: 'Conversion drops immediately after the promo-code step, especially on mobile.',
+        reflectionPhrase: 'checkout behavior',
+        evidence: {
+          summary: 'The drop begins immediately after the promo-code step.',
+          bullets: [
+            'Mobile checkout conversion is down 12%.',
+            'Desktop is down 3%.',
+            'The change began within hours of the latest release.',
+            'Most abandonment happens before payment details are entered.',
+          ],
+        },
+      },
+      {
+        id: 'customer-support',
+        title: 'Hear what shoppers are saying',
+        label: 'Customer Support',
+        decisionSummary: 'Promo-related support contacts are up 18% since the release.',
+        reflectionPhrase: 'customer support signals',
+        evidence: {
+          summary: 'Support contacts mentioning promo codes are up sharply since the release.',
+          quotes: [
+            "I couldn't tell whether my discount was applied.",
+            'The promo box disappeared after I entered my code.',
+            'I thought checkout had removed coupon codes.',
+          ],
+          signal: 'Promo-related contacts are up 18% since the release.',
+        },
+      },
+      {
+        id: 'latest-release',
+        title: 'See what changed',
+        label: 'Latest release',
+        decisionSummary: 'The latest release changed both promo-code visibility and the mobile checkout bundle size.',
+        reflectionPhrase: 'the latest release',
+        evidence: {
+          summary: 'The release changed two things that could affect checkout.',
+          bullets: [
+            'The promo-code field now sits behind a collapsed “Have a code?” interaction.',
+            'A new personalization package increased the mobile checkout bundle size.',
+            'No payment-processing changes were released.',
+          ],
+        },
+      },
+      {
+        id: 'engineering-signals',
+        title: "Ask Engineering what they're seeing",
+        label: 'Engineering signals',
+        decisionSummary: 'Mobile checkout p95 load time increased by roughly 0.6 seconds while desktop stayed almost unchanged.',
+        reflectionPhrase: 'engineering signals',
+        evidence: {
+          summary: "Engineering sees a real performance regression, but the impact isn't clear-cut.",
+          bullets: [
+            'Mobile checkout p95 load time increased by roughly 0.6 seconds.',
+            'Desktop performance is almost unchanged.',
+            'Slower sessions abandon somewhat more often.',
+            'Engineering has not established that performance explains the full 8% conversion decline.',
+          ],
+        },
+      },
+    ],
+    customQuestion: {
+      heading: 'What else would you want to investigate?',
+      supportingCopy: "Add a question you'd want answered in the real world. We'll save it only in your Career Snapshot on this device. It won't be used to score you or sent to Career GPS unless you choose to include it in feedback.",
+      placeholder: 'What else would you want to know?',
+      savedLabel: "You'd also want to investigate",
+      submitLabel: 'Add question',
+    },
+    continueLabel: 'I have enough to make a call',
+  },
+  decide: {
+    eyebrow: 'Decide',
+    heading: "You've looked around. Now the team needs a direction.",
+    supportingCopy: 'What do you want the team to do before the campaign launches?',
+    evidenceHeading: "What you've looked at",
+    options: [
+      {
+        id: 'promo-experience',
+        title: 'Change the promo-code experience now',
+        description: 'Restore a more visible promo-code experience before the campaign while continuing to monitor checkout performance.',
+      },
+      {
+        id: 'performance',
+        title: 'Prioritize the mobile performance regression',
+        description: 'Use the sprint to improve mobile checkout speed before making another UX change.',
+      },
+      {
+        id: 'smaller-intervention',
+        title: 'Make a smaller intervention first',
+        description: 'Make a lightweight promo-code change or controlled experiment while Engineering continues investigating performance.',
+      },
+    ],
+    customLabel: "I'd take a different approach",
+    customPrompt: 'What would you ask the team to do?',
+    customPlaceholder: 'Write a short direction in your own words.',
+    reasonHeading: 'What matters most in your decision?',
+    reasons: [
+      'Customer impact',
+      'Confidence in the evidence',
+      'Campaign risk',
+      'Speed',
+      'Engineering effort',
+      'Reversibility',
+      'Something else',
+    ],
+    customReasonPlaceholder: 'What else matters here?',
+    cta: 'Make the call',
+  },
+  respond: {
+    heading: 'Your direction meets the team.',
+    supportingCopy: 'Making the decision is only part of the work. A stakeholder now asks you to own the trade-off.',
+    prompt: 'How would you respond?',
+    customLabel: 'Respond in your own words',
+    customPlaceholder: 'What would you say?',
+    cta: 'See what you noticed',
+    branches: {
+      'promo-experience': {
+        stakeholder: 'Rina — Engineering Lead',
+        message: [
+          'That change is doable before the campaign. But the mobile performance regression will still be there.',
+          'Are you comfortable launching without fixing it?',
+        ],
+        responses: [
+          { id: 'monitor-performance', title: 'Move forward, but keep monitoring performance', description: "We have stronger evidence around promo-code confusion right now. Let's make the change and monitor mobile performance closely through launch.", reflectionPrompt: 'When your decision was challenged, you chose to stand behind the trade-off while continuing to watch the remaining risk. How did that feel?' },
+          { id: 'combined-plan', title: 'Ask for a smaller combined plan', description: 'Can we make the promo change and also reduce the highest-risk performance issue without putting the launch at risk?', reflectionPrompt: 'When the trade-off became uncomfortable, you looked for a way to reduce both risks. How did that feel?' },
+          { id: 'reopen-decision', title: 'Reopen the decision', description: 'Before we commit, I want to understand how much of the conversion drop performance could realistically explain.', reflectionPrompt: 'When your decision was challenged, you chose to gather another signal before committing further. How did that feel?' },
+        ],
+      },
+      performance: {
+        stakeholder: 'Elena — Sales Lead',
+        message: [
+          'The campaign starts in five days, and Support keeps sending us promo-code complaints.',
+          'If we spend the sprint on performance and conversion still drops during the campaign, how are we explaining that?',
+        ],
+        responses: [
+          { id: 'stand-behind-performance', title: 'Stand behind the performance decision', description: "The mobile degradation is real and affects the entire checkout journey. Let's fix it and closely watch promo-related abandonment during the campaign.", reflectionPrompt: 'When your decision was challenged, you chose to stand behind the trade-off. How did that feel?' },
+          { id: 'reduce-scope', title: 'Reduce the scope', description: "Let's see whether Engineering can address the highest-impact performance issue while we make a very small promo-code clarification.", reflectionPrompt: 'When the trade-off became uncomfortable, you looked for a way to reduce both risks. How did that feel?' },
+          { id: 'revisit-evidence', title: 'Revisit the evidence', description: "That's a fair concern. Before we commit the sprint, I want to compare the size of the performance effect with the promo-code abandonment.", reflectionPrompt: 'When your decision was challenged, you chose to gather another signal before committing further. How did that feel?' },
+        ],
+      },
+      'smaller-intervention': {
+        stakeholder: 'David — VP, Growth',
+        message: [
+          'I understand why you want more information, but the campaign is five days away.',
+          'Are we being appropriately cautious, or are we avoiding making the harder call?',
+        ],
+        responses: [
+          { id: 'explain-smaller-move', title: 'Explain why the smaller move is intentional', description: 'The evidence points in more than one direction. A reversible intervention lets us reduce customer friction without spending the whole sprint on the wrong root cause.', reflectionPrompt: 'When your decision was challenged, you explained why a smaller, reversible move was intentional. How did that feel?' },
+          { id: 'commit-strongly', title: 'Commit more strongly', description: "That's fair. Based on what we know, I'll commit to the promo-code change and treat performance as the next priority.", reflectionPrompt: 'When your decision was challenged, you chose to commit more strongly to one trade-off. How did that feel?' },
+          { id: 'one-more-signal', title: 'Ask for one more critical signal', description: "I'll make the call today, but I want one last comparison between promo abandonment and performance-related abandonment first.", reflectionPrompt: 'When your decision was challenged, you chose to gather one more critical signal before committing further. How did that feel?' },
+        ],
+      },
+      custom: {
+        stakeholder: 'Rina — Engineering Lead',
+        message: ['I can work with that direction. Before we commit the sprint, what trade-off are you most comfortable accepting?'],
+        responses: [
+          { id: 'customer-friction', title: 'Customer friction', reflectionPrompt: 'When the trade-off became explicit, you chose customer friction as the risk to carry. How did that feel?' },
+          { id: 'technical-risk', title: 'Technical risk', reflectionPrompt: 'When the trade-off became explicit, you chose technical risk as the risk to carry. How did that feel?' },
+          { id: 'launch-risk', title: 'Launch risk', reflectionPrompt: 'When the trade-off became explicit, you chose launch risk as the risk to carry. How did that feel?' },
+          { id: 'short-term-uncertainty', title: 'Short-term uncertainty', reflectionPrompt: 'When the trade-off became explicit, you chose short-term uncertainty as the risk to carry. How did that feel?' },
+        ],
+      },
+    },
+  },
+  reflect: {
+    heading: 'What did you notice about the work?',
+    supportingCopy: "There wasn't a right path through that situation. The useful part is noticing what the experience asked of you.",
+    roleObservations: [
+      'The situation never became completely certain. You still had to choose which risk the team would accept.',
+      'Once you made the decision, another stakeholder challenged the trade-off rather than simply accepting it.',
+    ],
+    feelingHeading: 'How did that experience feel?',
+    energizing: {
+      heading: 'What felt energizing?',
+      options: ['Figuring out what was really happening', 'Making the trade-off', 'Working through ambiguity', 'Responding to stakeholders', 'Connecting customer and business impact', 'None of these', 'Something else'],
+      placeholder: 'What else felt energizing?',
+    },
+    uncomfortable: {
+      heading: 'What felt unfamiliar or uncomfortable?',
+      options: ['Making a call without complete information', 'Choosing between competing priorities', 'Having my decision challenged', 'Not being able to solve everything', 'Influencing rather than controlling', 'Nothing in particular', 'Something else'],
+      placeholder: 'What else felt unfamiliar?',
+    },
+    cta: 'Continue to your reflection',
+  },
+  futureFeeling: {
+    heading: 'How did that future feel?',
+    supportingCopy: "You don't have to decide whether you'd be a great PM. Just decide whether you'd like to experience more of this kind of work.",
+    choices: [
+      { id: 'explore-more', title: 'I want to explore more', description: 'There was enough here that I want another look at Product Management.' },
+      { id: 'unsure', title: "I'm not sure yet", description: 'Some parts interested me, but I need another experience before deciding.' },
+      { id: 'not-for-me', title: "This doesn't feel like me", description: "Something about this kind of work didn't resonate with me." },
+    ],
+    cta: 'See my next step',
+  },
+  nextExperiment: {
+    'explore-more': {
+      heading: 'What part of Product Management do you want to try next?',
+      supportingCopy: "You've found enough that you want another look. Try a different part of the role.",
+      choices: [
+        { title: 'Stakeholder conflict', description: 'Experience what it feels like when several important people want different things from the roadmap.', available: true, simulationId: 'ba-to-pm-stakeholder-conflict', cta: 'Try this scenario' },
+        { title: 'Product strategy', description: 'Experience deciding where the product should place its next major bet.', available: true, simulationId: 'ba-to-pm-product-strategy', cta: 'Try this scenario' },
+      ],
+      decideLaterDescription: "Save what you've learned and come back whenever you're curious again.",
+    },
+    unsure: {
+      heading: 'What would help you learn more?',
+      supportingCopy: 'Another kind of PM moment may tell you more than trying to force a decision now.',
+      choices: [
+        { title: 'Customer discovery', description: 'Experience deciding whether an explicit customer request is actually a problem worth solving.', available: true, simulationId: 'ba-to-pm-customer-discovery', cta: 'Try this scenario' },
+        { title: 'Living with the decision', description: "Experience what happens when something you shipped doesn't perform the way you hoped.", available: true, simulationId: 'ba-to-pm-living-with-decision', cta: 'Try this scenario' },
+      ],
+      decideLaterDescription: "Save what you've learned and return when you're ready.",
+    },
+    'not-for-me': {
+      heading: 'What would you want more of instead?',
+      choices: ['More analysis', 'More clearly defined ownership', 'Less stakeholder negotiation', 'Less ambiguity', 'More time going deep on one problem', "I'm not sure yet"],
+      summary: "Career GPS will eventually help you explore futures that keep more of what you want and less of what didn't resonate here.",
+    },
+    decideLater: "I'll decide later.",
+  },
+  outcomes: {
+    'explore-more': {
+      heading: 'Keep exploring Product Management',
+      supportingCopy: "One simulation shouldn't decide a career. Try another part of the work before making a bigger commitment.",
+      shareText: 'I tried a Business Analyst → Product Manager career simulation and found enough in the work that I want to explore Product Management further.',
+    },
+    unsure: {
+      heading: "That's useful too.",
+      supportingCopy: "You don't need to turn curiosity into commitment yet. Another experience may tell you more than another career article will.",
+      shareText: 'I tried a Business Analyst → Product Manager career simulation. Some parts clicked, and some made me want another look before deciding.',
+    },
+    'not-for-me': {
+      heading: 'A “no” is useful too.',
+      supportingCopy: 'You just learned something before spending months pursuing the transition.',
+      shareText: 'I tried a Business Analyst → Product Manager career simulation and learned something useful before making the transition.',
+      leastAppealingHeading: 'What part felt least appealing?',
+      leastAppealingOptions: [
+        { id: 'incomplete-information', label: 'Making decisions with incomplete information', futures: ['Business Systems', 'Operations Strategy', 'Analytics Leadership'] },
+        { id: 'analysis-to-decisions', label: 'Spending less time analyzing and more time deciding', futures: ['Product Analytics', 'Business Intelligence', 'Strategy & Operations'] },
+        { id: 'stakeholder-priorities', label: 'Negotiating competing stakeholder priorities', futures: ['Senior Business Analyst', 'Product Operations', 'Program Management'] },
+        { id: 'influence-without-control', label: 'Owning trade-offs without directly controlling the work', futures: ['Senior Business Analyst', 'Product Operations', 'Program Management'] },
+        { id: 'pace-and-ambiguity', label: 'The overall pace and ambiguity', futures: ['Business Systems', 'Operations Strategy', 'Analytics Leadership'] },
+        { id: 'something-else', label: 'Something else', futures: [] },
+      ],
+      adjacentCopy: "You may want to explore futures that keep more of what you enjoy while changing the parts that didn't resonate here.",
+    },
+  },
+}

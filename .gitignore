@@ -1,0 +1,32 @@
+node_modules
+dist
+.vite
+coverage
+*.log
+*.local
+.env
+.env.*
+!.env.example
+outputs
+work/npm-cache
+work/pnpm-store
+work/node_modules-pnpm
+
+# Local editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Credentials and private key material
+.npmrc
+.netrc
+credentials*
+secrets*
+.secret*
+*.pem
+*.key
+*.p12
+*.pfx
