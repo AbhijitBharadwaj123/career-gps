@@ -1,6 +1,6 @@
-# Career GPS
+# Try the Work
 
-Career GPS lets people experience possible career transitions before committing to them.
+Try the Work lets people experience possible career transitions before committing to them.
 
 ## Current V0
 
@@ -31,7 +31,7 @@ The production files are written to `dist`.
 
 ## Product principle
 
-**Career GPS doesn't tell you whether you're fit for a career. It helps you discover whether the career is fit for you.**
+**Try the Work doesn't tell you whether you're fit for a career. It helps you discover whether the career is fit for you.**
 
 ## Deployment
 
