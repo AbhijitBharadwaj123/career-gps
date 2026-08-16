@@ -25,15 +25,15 @@ const followUpFeelings = {
 }
 
 const followUpOutcomes = {
-  'keep-exploring': { heading: 'Keep following your curiosity', supportingCopy: 'Each different PM moment gives you another piece of evidence about the future.', shareText: "I've been trying on different parts of Product Management with Career GPS before deciding whether to pursue the transition." },
-  'still-unsure': { heading: 'Staying unsure is useful too.', supportingCopy: "You don't need to force a decision. Another experience—or time away—can still teach you something.", shareText: "I've been trying on different parts of Product Management with Career GPS before deciding whether to pursue the transition." },
-  'learned-enough': { heading: 'Keep what you learned', supportingCopy: 'You can stop here without turning exploration into a commitment.', shareText: "I've been trying on different parts of Product Management with Career GPS before deciding whether to pursue the transition." },
-  'not-for-me': { heading: 'A “no” is useful too.', supportingCopy: 'You learned something before spending months pursuing the transition.', shareText: "I've been trying on different parts of Product Management with Career GPS and learned something useful before making the transition." },
+  'keep-exploring': { heading: 'Keep following your curiosity', supportingCopy: 'Each different PM moment gives you another piece of evidence about the future.', shareText: "I've been trying on different parts of Product Management with Try the Work before deciding whether to pursue the transition." },
+  'still-unsure': { heading: 'Staying unsure is useful too.', supportingCopy: "You don't need to force a decision. Another experience—or time away—can still teach you something.", shareText: "I've been trying on different parts of Product Management with Try the Work before deciding whether to pursue the transition." },
+  'learned-enough': { heading: 'Keep what you learned', supportingCopy: 'You can stop here without turning exploration into a commitment.', shareText: "I've been trying on different parts of Product Management with Try the Work before deciding whether to pursue the transition." },
+  'not-for-me': { heading: 'A “no” is useful too.', supportingCopy: 'You learned something before spending months pursuing the transition.', shareText: "I've been trying on different parts of Product Management with Try the Work and learned something useful before making the transition." },
 }
 
 const commonCustomQuestion = {
   heading: 'What else would you want to investigate?',
-  supportingCopy: "Add a question you'd want answered in the real world. We'll save it only in your Career Snapshot on this device. It won't be used to score you or sent to Career GPS unless you choose to include it in feedback.",
+  supportingCopy: "Add a question you'd want answered in the real world. We'll save it only in your Career Snapshot on this device. It won't be used to score you or sent to Try the Work unless you choose to include it in feedback.",
   placeholder: 'What else would you want to know?',
   savedLabel: "You'd also want to investigate",
   submitLabel: 'Add question',
@@ -148,7 +148,7 @@ function makeFollowUpSimulation(config) {
       'not-for-me': {
         heading: 'What would you want more of instead?',
         choices: config.moreOfOptions,
-        summary: "Career GPS will eventually help you explore futures that keep more of what you want and less of what didn't resonate here.",
+        summary: "Try the Work will eventually help you explore futures that keep more of what you want and less of what didn't resonate here.",
       },
       decideLater: "I'll decide later.",
     },
