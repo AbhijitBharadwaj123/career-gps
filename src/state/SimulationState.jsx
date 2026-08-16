@@ -12,7 +12,7 @@ const PROGRESS_STORAGE_KEYS = {
   'engineer-to-pm-growth-economics': 'career-gps:simulation:engineer-to-pm:growth-economics:v1',
   'engineer-to-pm-engineering-owns-how': 'career-gps:simulation:engineer-to-pm:engineering-owns-how:v1',
   'engineer-to-pm-launch-technically-ready': 'career-gps:simulation:engineer-to-pm:launch-technically-ready:v1',
-  // Legacy keys remain here so clearing Career GPS also removes older prototype data.
+  // Legacy keys remain here so clearing Try the Work also removes older prototype data.
   'engineer-to-pm-roadmap-influence': 'career-gps:simulation:engineer-to-pm:roadmap-influence:v1',
   'engineer-to-pm-problem-before-solution': 'career-gps:simulation:engineer-to-pm:problem-before-solution:v1',
 }
