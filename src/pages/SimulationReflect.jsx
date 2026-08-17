@@ -2,15 +2,11 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Brand from '../components/Brand'
 import ChoiceChips from '../components/ChoiceChips'
+import EvidenceBackedReflection from '../components/EvidenceBackedReflection'
 import SimulationProgress from '../components/SimulationProgress'
 import { getSimulation } from '../data/simulations'
 import { useTrackSimulationStage, useTransitionSimulation } from '../state/SimulationState'
-
-function joinNaturally(items) {
-  if (items.length < 2) return items[0] || 'the signals you chose'
-  if (items.length === 2) return `${items[0]} and ${items[1]}`
-  return `${items.slice(0, -1).join(', ')}, and ${items.at(-1)}`
-}
+import { createEvidenceBackedReflection } from '../utils/reflectionInsights'
 
 export default function SimulationReflect() {
   const { transitionId } = useParams()
@@ -18,20 +14,8 @@ export default function SimulationReflect() {
   const { state, setField, toggleValue } = useTransitionSimulation(transitionId)
   useTrackSimulationStage(transitionId, 'reflect', Boolean(simulation))
   if (!simulation) return null
-  const { transitionLabel, routes, explore, respond, reflect } = simulation
-  const explored = state.exploredIds.map((id) => explore.options.find((option) => option.id === id)).filter(Boolean)
-  const branch = respond.branches[state.decisionId] || respond.branches.custom
-  const selectedResponse = branch.responses.find((option) => option.id === state.responseId)
-  const spentTimeCopy = explored.length === explore.options.length
-    ? 'You chose to look across all four available signals before making your call.'
-    : explored.length === 1 && explored[0].reflectionSummary
-      ? explored[0].reflectionSummary
-      : `You chose to look at ${joinNaturally(explored.map((option) => option.reflectionPhrase))} before making your call.`
-  const responseMomentCopy = selectedResponse?.reflectionPrompt
-    || 'When the trade-off became explicit, you responded in your own words. How did that feel?'
-  const momentCopy = state.decisionId === 'custom'
-    ? `You chose a direction outside the options Try the Work presented. ${responseMomentCopy}`
-    : responseMomentCopy
+  const { transitionLabel, routes, reflect } = simulation
+  const evidenceReflection = createEvidenceBackedReflection(state, simulation)
   const canContinue = state.energizing.length > 0 && state.uncomfortable.length > 0
 
   return (
@@ -45,21 +29,7 @@ export default function SimulationReflect() {
           <h1 className="mt-5 font-display text-[2.7rem] leading-[1.06] tracking-[-0.045em] sm:text-6xl lg:text-[3.5rem]">{reflect.heading}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{reflect.supportingCopy}</p>
 
-          <div className="mt-10 grid gap-4 lg:grid-cols-2">
-            <article className="rounded-[1.5rem] border border-line bg-white/75 p-5 shadow-card sm:p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">What you spent time on</p>
-              <p className="mt-4 font-display text-xl leading-8 tracking-[-0.02em] text-ink sm:text-2xl">{spentTimeCopy}</p>
-            </article>
-            <article className="rounded-[1.5rem] border border-line bg-white/75 p-5 shadow-card sm:p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">What the role asked of you</p>
-              <div className="mt-4 space-y-3 text-[15px] leading-7 text-muted">{reflect.roleObservations.map((observation) => <p key={observation}>{observation}</p>)}</div>
-            </article>
-          </div>
-
-          <article className="mt-4 rounded-[1.5rem] border border-accent/15 bg-sage/50 p-5 sm:p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">A moment to notice</p>
-            <p className="mt-4 font-display text-xl leading-8 tracking-[-0.02em] text-ink sm:text-2xl">{momentCopy}</p>
-          </article>
+          <EvidenceBackedReflection reflection={evidenceReflection} />
 
           <section className="mt-12 border-t border-line pt-10">
             <h2 className="font-display text-4xl tracking-[-0.04em] text-ink">{reflect.feelingHeading}</h2>
