@@ -33,6 +33,10 @@ The production files are written to `dist`.
 
 **Try the Work doesn't tell you whether you're fit for a career. It helps you discover whether the career is fit for you.**
 
+## Product evolution
+
+See the [Enhancement Log](docs/enhancement-log.md) for a running record of meaningful product changes, the reasoning behind them, and their intended impact.
+
 ## Deployment
 
 Netlify uses `npm run build`, publishes `dist`, and reads the SPA redirect and form configuration from `netlify.toml` and `index.html`.
