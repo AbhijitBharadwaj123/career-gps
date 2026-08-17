@@ -1,5 +1,6 @@
 import { mayaBaToPmSimulation } from '../data/mayaSimulation.js'
 import { getTransitionSimulations } from '../data/simulations.js'
+import { createEvidenceBackedReflection } from './reflectionInsights.js'
 
 function withCustomSelection(selections = [], customValue = '') {
   return selections.map((selection) => selection === 'Something else' && customValue.trim()
@@ -21,6 +22,7 @@ export function createCareerSnapshot(state, outcomeId, simulation = mayaBaToPmSi
   const outcome = futureFeeling.choices.find((choice) => choice.id === outcomeId)
   const completedAt = state.completedAt || new Date().toISOString()
   const completionDates = experiences.map(({ state: scenarioState }) => scenarioState.completedAt).filter(Boolean).sort()
+  const evidenceReflection = createEvidenceBackedReflection(state, simulation)
 
   return {
     id: `snapshot-${transitionId}`,
@@ -39,6 +41,8 @@ export function createCareerSnapshot(state, outcomeId, simulation = mayaBaToPmSi
     uncomfortableSelections: unique(experiences.flatMap(({ state: scenarioState }) => withCustomSelection(scenarioState.uncomfortable, scenarioState.customUncomfortable))),
     nextExperiment: state.nextExperiment || "I'll decide later.",
     questionsStillToInvestigate: unique(experiences.flatMap(({ state: scenarioState }) => scenarioState.savedQuestions || [])),
+    evidenceReflection,
+    reflectionExperienceLabel: simulation.experienceLabel,
   }
 }
 
@@ -68,6 +72,20 @@ export function createSnapshotEmailHref(snapshot, publicUrl) {
     'What I want to explore next:',
     snapshot.nextExperiment,
     ...(questions.length ? ['', "Questions I'd still want answered:", asList(questions)] : []),
+    ...(snapshot.evidenceReflection ? [
+      '',
+      `Evidence-backed reflection from ${snapshot.reflectionExperienceLabel || 'the latest experience'}:`,
+      snapshot.evidenceReflection.suggestion,
+      '',
+      'A tension to explore:',
+      snapshot.evidenceReflection.tension,
+      '',
+      'What remains uncertain:',
+      snapshot.evidenceReflection.uncertainty,
+      '',
+      'A real-world experiment:',
+      snapshot.evidenceReflection.experiment,
+    ] : []),
     '',
     'First explored:',
     formatSnapshotDate(snapshot.firstExploredAt || snapshot.completedAt),
