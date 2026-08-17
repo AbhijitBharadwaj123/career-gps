@@ -99,7 +99,11 @@ export default function SimulationEntry() {
               </p>
             </div>
 
-            <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <p className="mt-6 text-sm leading-6 text-muted">
+              <span className="font-semibold text-ink/80">Prefer to speak?</span> Voice input is available during open-ended moments, and every transcript stays editable.
+            </p>
+
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link
                 to={routes.explore}
                 onClick={() => {
