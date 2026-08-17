@@ -12,7 +12,7 @@ const joinTranscript = (existingValue, transcript) => {
   return existing ? `${existing} ${spoken}` : spoken
 }
 
-export default function VoiceInputButton({ value, onChange, label = 'your response' }) {
+export default function VoiceInputButton({ value, onChange, label = 'your response', compact = false, tooltip }) {
   const recognitionRef = useRef(null)
   const startingValueRef = useRef('')
   const [isSupported, setIsSupported] = useState(false)
@@ -96,12 +96,36 @@ export default function VoiceInputButton({ value, onChange, label = 'your respon
 
   if (!isSupported) return null
 
+  const buttonLabel = isListening ? `Stop voice input for ${label}` : `Start voice input for ${label}`
+
+  if (compact) {
+    return (
+      <div className="shrink-0">
+        <button
+          type="button"
+          aria-pressed={isListening}
+          aria-label={buttonLabel}
+          title={isListening ? 'Stop listening' : (tooltip || buttonLabel)}
+          onClick={isListening ? stopListening : startListening}
+          className={`relative inline-flex h-12 w-12 items-center justify-center rounded-full border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas ${isListening ? 'border-accent bg-accent text-white' : 'border-line bg-white/80 text-ink hover:border-accent/40 hover:text-accent'}`}
+        >
+          <svg viewBox="0 0 24 24" className="h-[1.125rem] w-[1.125rem]" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+            <rect x="8.5" y="3" width="7" height="12" rx="3.5" />
+            <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M9 21h6" strokeLinecap="round" />
+          </svg>
+          {isListening && <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-white" aria-hidden="true" />}
+        </button>
+        <span className="sr-only" aria-live="polite">{message}</span>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <button
         type="button"
         aria-pressed={isListening}
-        aria-label={isListening ? `Stop voice input for ${label}` : `Start voice input for ${label}`}
+        aria-label={buttonLabel}
         onClick={isListening ? stopListening : startListening}
         className={`inline-flex min-h-10 w-fit items-center justify-center gap-2 rounded-full border px-4 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas ${isListening ? 'border-accent bg-accent text-white' : 'border-line bg-white/80 text-ink hover:border-accent/40 hover:text-accent'}`}
       >
