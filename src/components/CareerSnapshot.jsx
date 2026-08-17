@@ -51,6 +51,41 @@ export default function CareerSnapshot({ snapshot, compact = false }) {
           </section>
         )}
       </div>
+
+      {snapshot.evidenceReflection && (
+        <section className="mt-7 border-t border-line pt-7" aria-label="Evidence-backed reflection">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-accent">Evidence-backed reflection{snapshot.reflectionExperienceLabel ? ` · ${snapshot.reflectionExperienceLabel}` : ''}</p>
+          {!compact && (
+            <div className="mt-5 rounded-2xl border border-line bg-white/55 p-5">
+              <h3 className="text-sm font-semibold text-ink">What you did</h3>
+              <SnapshotList items={snapshot.evidenceReflection.evidence} />
+            </div>
+          )}
+          <div className={`mt-4 grid gap-4 ${compact ? '' : 'md:grid-cols-2'}`}>
+            <div className="rounded-2xl border border-accent/15 bg-sage/45 p-5">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.13em] text-accent">What that may suggest</h3>
+              <p className="mt-3 text-[15px] leading-7 text-ink/85">{snapshot.evidenceReflection.suggestion}</p>
+            </div>
+            <div className="rounded-2xl border border-line bg-white/55 p-5">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.13em] text-accent">A tension to explore</h3>
+              <p className="mt-3 text-[15px] leading-7 text-muted">{snapshot.evidenceReflection.tension}</p>
+            </div>
+            {!compact && (
+              <>
+                <div className="rounded-2xl border border-line bg-white/55 p-5">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.13em] text-accent">What remains uncertain</h3>
+                  <p className="mt-3 text-[15px] leading-7 text-muted">{snapshot.evidenceReflection.uncertainty}</p>
+                </div>
+                <div className="rounded-2xl border border-accent/15 bg-sage/35 p-5">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.13em] text-accent">Try this outside the simulation</h3>
+                  <p className="mt-3 text-[15px] leading-7 text-ink/85">{snapshot.evidenceReflection.experiment}</p>
+                </div>
+              </>
+            )}
+          </div>
+          {!compact && <p className="mt-4 text-xs leading-5 text-muted"><span className="font-semibold text-ink/70">How this was formed:</span> {snapshot.evidenceReflection.methodology}</p>}
+        </section>
+      )}
     </article>
   )
 }
