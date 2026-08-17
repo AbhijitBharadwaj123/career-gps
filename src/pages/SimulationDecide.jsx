@@ -22,11 +22,19 @@ export default function SimulationDecide() {
   const hasDecision = Boolean(state.decisionId) && (state.decisionId !== 'custom' || (state.customDecisionCaptured && state.customDecision.trim()))
   const hasReason = state.decisionReasons.length > 0
 
+  const resetDownstreamDecisionState = () => {
+    setField('responseId', '')
+    setField('customResponse', '')
+    setField('responseIntentions', [])
+    setField('consequenceRevealed', false)
+    setField('adaptationId', '')
+    setField('customAdaptation', '')
+  }
+
   const selectDecision = (decisionId) => {
     if (state.decisionId !== decisionId) {
       setField('decisionId', decisionId)
-      setField('responseId', '')
-      setField('customResponse', '')
+      resetDownstreamDecisionState()
     }
   }
 
@@ -103,6 +111,7 @@ export default function SimulationDecide() {
                       onChange={(event) => {
                         setField('customDecision', event.target.value)
                         setField('customDecisionCaptured', false)
+                        resetDownstreamDecisionState()
                       }}
                       placeholder={decide.customPlaceholder}
                       rows={3}
@@ -115,6 +124,7 @@ export default function SimulationDecide() {
                         onChange={(nextValue) => {
                           setField('customDecision', nextValue)
                           setField('customDecisionCaptured', false)
+                          resetDownstreamDecisionState()
                         }}
                       />
                       <button

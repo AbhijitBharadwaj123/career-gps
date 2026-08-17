@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Brand from '../components/Brand'
+import ChoiceChips from '../components/ChoiceChips'
+import ConsequenceAdaptation from '../components/ConsequenceAdaptation'
 import SelectionCard from '../components/SelectionCard'
 import SimulationProgress from '../components/SimulationProgress'
 import StakeholderMessage from '../components/StakeholderMessage'
@@ -17,7 +19,42 @@ export default function SimulationRespond() {
   const { transitionLabel, routes, decide, respond } = simulation
   const branch = respond.branches[state.decisionId] || respond.branches.custom
   const selectedDecision = decide.options.find((option) => option.id === state.decisionId)
+  const intentionOptions = respond.intentOptions || []
+  const consequence = respond.consequences?.[state.decisionId] || respond.consequences?.custom
+  const hasConsequence = Boolean(consequence)
   const hasResponse = Boolean(state.responseId) && (state.responseId !== 'custom' || state.customResponse.trim())
+  const hasRequiredIntention = intentionOptions.length === 0 || state.responseIntentions.length > 0
+  const canRevealConsequence = hasResponse && hasRequiredIntention
+  const hasAdaptation = Boolean(state.adaptationId)
+    && (state.adaptationId !== 'custom' || state.customAdaptation.trim())
+  const canContinue = hasConsequence ? state.consequenceRevealed && hasAdaptation : canRevealConsequence
+
+  const resetConsequence = () => {
+    setField('consequenceRevealed', false)
+    setField('adaptationId', '')
+    setField('customAdaptation', '')
+  }
+
+  const selectResponse = (responseId) => {
+    if (state.responseId === responseId) return
+    setField('responseId', responseId)
+    setField('responseIntentions', [])
+    resetConsequence()
+  }
+
+  const selectAdaptation = (adaptationId) => {
+    setField('adaptationId', adaptationId)
+    if (adaptationId !== 'custom') setField('customAdaptation', '')
+  }
+
+  const toggleIntention = (intentionId) => {
+    const selected = state.responseIntentions || []
+    if (selected.includes(intentionId)) {
+      setField('responseIntentions', selected.filter((id) => id !== intentionId))
+      return
+    }
+    if (selected.length < 2) setField('responseIntentions', [...selected, intentionId])
+  }
 
   if (!state.decisionId) {
     return (
@@ -51,7 +88,7 @@ export default function SimulationRespond() {
               <h2 className="font-display text-3xl tracking-[-0.035em] text-ink">{respond.prompt}</h2>
               <div className="mt-5 space-y-3">
                 {branch.responses.map((option) => (
-                  <SelectionCard key={option.id} title={option.title} description={option.description} selected={state.responseId === option.id} onSelect={() => setField('responseId', option.id)} />
+                  <SelectionCard key={option.id} title={option.title} description={option.description} selected={state.responseId === option.id} onSelect={() => selectResponse(option.id)} />
                 ))}
               </div>
 
@@ -60,10 +97,11 @@ export default function SimulationRespond() {
                 <textarea
                   id="custom-response"
                   value={state.customResponse}
-                  onFocus={() => setField('responseId', 'custom')}
+                  onFocus={() => selectResponse('custom')}
                   onChange={(event) => {
-                    setField('responseId', 'custom')
+                    selectResponse('custom')
                     setField('customResponse', event.target.value)
+                    resetConsequence()
                   }}
                   placeholder={respond.customPlaceholder}
                   rows={4}
@@ -74,18 +112,59 @@ export default function SimulationRespond() {
                     value={state.customResponse}
                     label="your response"
                     onChange={(nextValue) => {
-                      setField('responseId', 'custom')
+                      selectResponse('custom')
                       setField('customResponse', nextValue)
+                      resetConsequence()
                     }}
                   />
                 </div>
               </div>
             </section>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link to={routes.reflect} aria-disabled={!hasResponse} onClick={(event) => !hasResponse && event.preventDefault()} className={`inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition ${hasResponse ? 'bg-ink text-white shadow-card hover:bg-accent-dark' : 'cursor-not-allowed bg-line/70 text-muted'}`}>{respond.cta}<span aria-hidden="true">→</span></Link>
-              <Link to={routes.decide} className="inline-flex min-h-11 items-center justify-center px-4 text-sm font-semibold text-muted hover:text-accent">Back to the decision</Link>
-            </div>
+            {hasResponse && intentionOptions.length > 0 && (
+              <section className="mt-9 rounded-[1.5rem] border border-accent/15 bg-sage/45 p-5 sm:p-6" aria-labelledby="response-intention-heading">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Your intention</p>
+                <h2 id="response-intention-heading" className="mt-3 font-display text-2xl leading-8 tracking-[-0.03em] text-ink sm:text-3xl">{respond.intentHeading}</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">{respond.intentSupportingCopy}</p>
+                <div className="mt-5">
+                  <ChoiceChips options={intentionOptions} selected={state.responseIntentions || []} onToggle={toggleIntention} />
+                </div>
+                <p className="mt-4 text-xs leading-5 text-muted">{state.responseIntentions.length}/2 selected · Your response stays editable and is not scored.</p>
+              </section>
+            )}
+
+            {hasConsequence && !state.consequenceRevealed && (
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <button
+                  type="button"
+                  disabled={!canRevealConsequence}
+                  onClick={() => setField('consequenceRevealed', true)}
+                  className={`inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition ${canRevealConsequence ? 'bg-ink text-white shadow-card hover:bg-accent-dark' : 'cursor-not-allowed bg-line/70 text-muted'}`}
+                >
+                  {respond.consequenceCta || 'See what happens next'}<span aria-hidden="true">→</span>
+                </button>
+                <Link to={routes.decide} className="inline-flex min-h-11 items-center justify-center px-4 text-sm font-semibold text-muted hover:text-accent">Back to the decision</Link>
+              </div>
+            )}
+
+            {hasConsequence && state.consequenceRevealed && (
+              <ConsequenceAdaptation
+                consequence={consequence}
+                state={state}
+                onSelect={selectAdaptation}
+                onCustomChange={(value) => {
+                  setField('adaptationId', 'custom')
+                  setField('customAdaptation', value)
+                }}
+              />
+            )}
+
+            {(!hasConsequence || state.consequenceRevealed) && (
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link to={routes.reflect} aria-disabled={!canContinue} onClick={(event) => !canContinue && event.preventDefault()} className={`inline-flex min-h-12 items-center justify-center gap-3 rounded-full px-6 py-3 text-sm font-semibold transition ${canContinue ? 'bg-ink text-white shadow-card hover:bg-accent-dark' : 'cursor-not-allowed bg-line/70 text-muted'}`}>{respond.cta}<span aria-hidden="true">→</span></Link>
+                <Link to={routes.decide} className="inline-flex min-h-11 items-center justify-center px-4 text-sm font-semibold text-muted hover:text-accent">Back to the decision</Link>
+              </div>
+            )}
           </div>
         </section>
       </main>
