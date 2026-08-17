@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Brand from '../components/Brand'
 import ExplorationOption from '../components/ExplorationOption'
 import SimulationProgress from '../components/SimulationProgress'
+import VoiceInputButton from '../components/VoiceInputButton'
 import { getSimulation } from '../data/simulations'
 import { useTrackSimulationStage, useTransitionSimulation } from '../state/SimulationState'
 
@@ -71,13 +72,22 @@ export default function SimulationExplore() {
                 <label htmlFor="custom-question" className="text-sm font-semibold text-ink">{explore.customQuestion.heading}</label>
                 {explore.customQuestion.supportingCopy && <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{explore.customQuestion.supportingCopy}</p>}
                 <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                  <input
-                    id="custom-question"
-                    value={questionDraft}
-                    onChange={(event) => setQuestionDraft(event.target.value)}
-                    placeholder={explore.customQuestion.placeholder}
-                    className="min-h-12 min-w-0 flex-1 rounded-full border border-line bg-white/75 px-5 text-sm text-ink shadow-sm outline-none transition placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/15"
-                  />
+                  <div className="flex min-w-0 flex-1 items-center gap-2">
+                    <input
+                      id="custom-question"
+                      value={questionDraft}
+                      onChange={(event) => setQuestionDraft(event.target.value)}
+                      placeholder={explore.customQuestion.placeholder}
+                      className="min-h-12 min-w-0 flex-1 rounded-full border border-line bg-white/75 px-5 text-sm text-ink shadow-sm outline-none transition placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/15"
+                    />
+                    <VoiceInputButton
+                      value={questionDraft}
+                      onChange={setQuestionDraft}
+                      label="your investigation question"
+                      tooltip="Speak your question"
+                      compact
+                    />
+                  </div>
                   <button
                     type="submit"
                     disabled={!questionDraft.trim()}
